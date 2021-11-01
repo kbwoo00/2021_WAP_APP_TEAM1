@@ -1,0 +1,46 @@
+{
+  "project_info": {
+    "project_number": "973946740468",
+    "project_id": "togetor-8d0dd",
+    "storage_bucket": "togetor-8d0dd.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:973946740468:android:c3905043ba074b358108a1",
+        "android_client_info": {
+          "package_name": "com.example.togetor"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "973946740468-6kslrsnih13sfqngjvao6n4jh0q6j9ia.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA-E-zumxhGRfVK9IYb_8g-9ZEzjGoktgY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "973946740468-6kslrsnih13sfqngjvao6n4jh0q6j9ia.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "973946740468-ph8r303j750sjda7vcjlbi77ch56lcqq.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.togetor"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
