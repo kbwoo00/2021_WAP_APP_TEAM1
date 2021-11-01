@@ -30,19 +30,19 @@ TGTButton(
 
 ### **_Properties_**
 
-**child** → Widget
-The primary content of the TGTButton.
+**child** → Widget  
+The primary content of the TGTButton.  
 _`final`_
 
-**onPressed** → voidCallback
-The callback that is called when the button is tapped or otherwise activated.
+**onPressed** → voidCallback  
+The callback that is called when the button is tapped or otherwise activated.  
 _`final`_
 
-**width** → Double?
+**width** → Double?  
 _`final`_
 
-**height** → Double?
+**height** → Double?  
 _`final`_
 
-**borderRadius** → Double?
+**borderRadius** → Double?  
 _`final`_
