@@ -25,7 +25,6 @@ class _MyPageState extends State<MyPage> {
   @override
   Widget build(BuildContext context){
     return Scaffold(
-
         appBar: AppBar(
         title: Text('together'),
         centerTitle: false, elevation:0.0,
