@@ -2,12 +2,25 @@
 import 'package:flutter/material.dart';
 import 'package:dio/dio.dart';
 import 'package:hi_flt/API.dart';
+import 'package:hi_flt/widget/counter.dart';
+import 'package:hi_flt/widget/buttons.dart';
 import 'package:logger/logger.dart';
+import 'package:provider/provider.dart';
+import 'providers/counts.dart';
+import 'providers/retro_provider.dart';
 
 final logger = Logger();
 
 void main() {
-  runApp(Test());
+  runApp(
+    MultiProvider(
+      providers: [
+        ChangeNotifierProvider(create: (_) => Counts()),
+        ChangeNotifierProvider(create: (_) => info()),
+      ],
+      child: Test(),
+    ),
+  );
 }
 
 class Test extends StatelessWidget {
@@ -33,7 +46,26 @@ class yap extends StatefulWidget {
 }
 
 class _yapState extends State<yap> {
+
+  @override
+  void initState(){
+    super.initState();
+    print('hi');
+    retro2();
+    //context.read<info>().one("jabjab");
+  }
+
   String res = 'bb';
+
+  void retro2() {
+    Dio dio = Dio();
+    RestClient client = RestClient(dio);
+
+    client.getTasks().then((it) {
+      context.read<info>().one(it[0].name);
+      logger.i("retro2 hahaha");
+    });
+  }
 
   void retro() {
     Dio dio = Dio();
@@ -89,14 +121,8 @@ class _yapState extends State<yap> {
             color: Colors.white,
             child: Padding(
                 padding: EdgeInsets.all(20),
-                child: Text("asdfasdf",
-                    style: TextStyle(
-                      fontFamily: 'BalsamiqSans',
-                      fontSize: 20.0,
-                      color: Colors.black,
-                      fontWeight: FontWeight.normal,
-                      fontStyle: FontStyle.normal,
-                    ))),
+                child: Counter(),
+            ),
             // child: ListTile(
             //   title: Text('제목'),
             //   subtitle: Text('test123aaaaaa'),
@@ -112,10 +138,10 @@ class _yapState extends State<yap> {
         //     mainAxisAlignment: MainAxisAlignment.center,
         //   )
         // ),
-        CircleAvatar(
-          radius: 80.0,
-          backgroundImage: AssetImage('images/415.PNG'),
-        ),
+        // CircleAvatar(
+        //   radius: 80.0,
+        //   backgroundImage: AssetImage('images/415.PNG'),
+        // ),
         GestureDetector(
           onTap: () {
             logger.i('taptatp');
@@ -124,7 +150,8 @@ class _yapState extends State<yap> {
 
             client.getTasks().then((it) {
               setState(() {
-                res = it[0].name;
+                res = it[2].name;
+                context.read<info>().one(res);
                 logger.i(res);
               });
             });
@@ -135,7 +162,7 @@ class _yapState extends State<yap> {
               mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
                 Text(
-                  'PKNU ${widget.ress}',
+                  context.watch<info>().res.toString()+'${widget.ress}',
                   style: TextStyle(
                     fontFamily: 'BalsamiqSans',
                     fontSize: 40.0,
@@ -157,6 +184,9 @@ class _yapState extends State<yap> {
             ),
           ),
         ),
+        Container(
+          child: Buttons()
+        )
       ],
     );
   }

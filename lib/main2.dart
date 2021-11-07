@@ -14,8 +14,7 @@ class Test extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-        home: Scaffold(
+    return MaterialApp(        home: Scaffold(
           backgroundColor: Colors.teal,
           body: SafeArea(
             child: Column(
