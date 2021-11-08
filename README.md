@@ -79,6 +79,7 @@ _`final`_
 ### **_Properties_**
 **onPressed**→ voidCallBack
 The callback that is called when the button is tapped or otherwise activated.
+
 _`final`_
 
 **child** → Widget  
