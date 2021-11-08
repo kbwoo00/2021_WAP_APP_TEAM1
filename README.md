@@ -1,4 +1,6 @@
-# togetor
+# Togetor
+
+---
 
 ## TGTButton class
 
@@ -46,3 +48,9 @@ _`final`_
 
 **borderRadius** → Double?  
 _`final`_
+
+---
+
+## TGTTopBar class
+
+---
