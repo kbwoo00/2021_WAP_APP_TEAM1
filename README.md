@@ -53,7 +53,8 @@ _`final`_
 
 ## TGTTopBar class
 
----dart 
+---
+```dart 
         leading: IconButton(
             icon:Icon(Icons.arrow_left_rounded),
             onPressed: (){
