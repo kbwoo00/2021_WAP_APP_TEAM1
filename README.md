@@ -53,11 +53,7 @@ _`final`_
 
 ## TGTTopBar class
 
----
-
-## TGTTop_Bar class
-
-```dart 
+---dart 
         leading: IconButton(
             icon:Icon(Icons.arrow_left_rounded),
             onPressed: (){
@@ -78,4 +74,6 @@ _`final`_
       )
 ```
 
+### **_Properties_**
+**onPressed**
 
