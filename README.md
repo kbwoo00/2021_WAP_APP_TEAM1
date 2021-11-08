@@ -54,3 +54,28 @@ _`final`_
 ## TGTTopBar class
 
 ---
+
+## TGTTop_Bar class
+
+```dart 
+        leading: IconButton(
+            icon:Icon(Icons.arrow_left_rounded),
+            onPressed: (){
+              print('gotoback(navigation위젯');
+            }
+            
+        endDrawer : Drawer(
+          child : ListView(
+            padding : EdgeInsets.zero,
+            children: <Widget>[
+              DrawerHeader(
+                child:Text('Drawer'),
+                decoration: BoxDecoration(
+                  color:Colors.blue,),
+              ),
+            ],
+          )
+      )
+```
+
+
