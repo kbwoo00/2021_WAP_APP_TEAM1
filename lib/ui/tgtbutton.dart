@@ -7,15 +7,17 @@ class TGTButton extends StatelessWidget {
   final double borderRadius;
   final Widget child;
   final VoidCallback onPressed;
+  final Color? color;
 
-  const TGTButton(
-      {Key? key,
-      required this.child,
-      required this.onPressed,
-      this.width = 50.0,
-      this.height = 50.0,
-      this.borderRadius = 80.0})
-      : super(key: key);
+  const TGTButton({
+    Key? key,
+    required this.child,
+    required this.onPressed,
+    this.width = 50.0,
+    this.height = 50.0,
+    this.borderRadius = 80.0,
+    this.color,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -38,7 +40,16 @@ class TGTButton extends StatelessWidget {
       ),
       width: width,
       height: height,
-      decoration: _decoration,
+      decoration: color != null
+          ? BoxDecoration(
+              borderRadius: BorderRadius.circular(borderRadius),
+              gradient: LinearGradient(
+                begin: Alignment.topCenter,
+                end: Alignment.bottomCenter,
+                colors: [color!, color!],
+              ),
+            )
+          : _decoration,
     );
   }
 }
