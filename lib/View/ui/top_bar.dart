@@ -1,52 +1,78 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
-class top_bar extends StatelessWidget {
-  const top_bar({Key? key}) : super(key: key);
+class TGTtop_bar extends StatefulWidget{
+
+  var title = "together";
+  final VoidCallback onPressed;
+
+  TGTtop_bar({
+    Key? key,
+    required this.title,
+    required this.onPressed,
+  }) : super(key: key);
+
   @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'together', //상단바 제목작성
-      theme: ThemeData(primarySwatch: Colors.blue),
-      home: MyPage(),
-    );
+  _TGTtop_bar createState() => _TGTtop_bar();
+}
+
+class _TGTtop_bar extends State<TGTtop_bar> {
+  var title;
+  final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey();
+
+  @override
+
+  void initState(){
+    super.initState();
   }
-}
-
-class MyPage extends StatefulWidget {
-  const MyPage({Key? key}) : super(key: key);
-  @override
-  State<MyPage> createState() => _MyPageState();
-}
-
-class _MyPageState extends State<MyPage> {
-  @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context){
     return Scaffold(
+      key:_scaffoldKey,
+      endDrawer : Container(
+        width:250,
+        child : Drawer(
+            child : ListView(
+              padding : EdgeInsets.zero,
+              children: <Widget>[
+                DrawerHeader(
+                  child:Text('Drawer'),
+                  decoration: BoxDecoration(
+                    color:Colors.blue,),
+                ),
+              ],
+            )
+        ),
+      ),
       appBar: AppBar(
-        title: Text('together'),
-        centerTitle: false,
-        elevation: 0.0,
-        leading: IconButton(
-          icon: Icon(Icons.arrow_left_rounded),
-          onPressed: () {
-            print('gotoback(navigation위젯');
-          },
-        ),
-      ),
-      endDrawer: Drawer(
-        child: ListView(
-          padding: EdgeInsets.zero,
-          children: <Widget>[
-            DrawerHeader(
-              child: Text('Drawer'),
-              decoration: BoxDecoration(
-                color: Colors.blue,
+          title: Text('together'),
+          centerTitle: true, elevation:0.0,
+          leading: IconButton(
+              icon:Icon(Icons.arrow_left_rounded),
+              onPressed: (){
+                print('gotoback(navigation위젯');
+              }
+          ),
+          actions: <Widget>[
+            Container(
+              child: IconButton(
+                iconSize: 40,
+                color: Colors.black,
+                icon: Icon(Icons.menu),
+                onPressed: () {
+                  _scaffoldKey.currentState!.openEndDrawer();
+                },
               ),
-            ),
-          ],
-        ),
-      ),
+            )
+          ]),
+      // actions: [
+      //   IconButton(
+      //     icon: Icon(
+      //       Icons.account_circle,
+      //     ),
+      //     onPressed: (){},
+      //   ),
+      // ],
     );
   }
+
 }
