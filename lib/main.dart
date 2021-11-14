@@ -7,7 +7,7 @@ import 'package:hi_flt/widget/buttons.dart';
 import 'package:logger/logger.dart';
 import 'package:provider/provider.dart';
 import 'providers/counts.dart';
-import 'providers/retro_provider.dart';
+import 'providers/contentinfo_retro.dart';
 
 final logger = Logger();
 
@@ -16,7 +16,7 @@ void main() {
     MultiProvider(
       providers: [
         ChangeNotifierProvider(create: (_) => Counts()),
-        ChangeNotifierProvider(create: (_) => info()),
+        ChangeNotifierProvider(create: (_) => ContentINFO()),
       ],
       child: Test(),
     ),
@@ -62,7 +62,7 @@ class _yapState extends State<yap> {
     RestClient client = RestClient(dio);
 
     client.getTasks().then((it) {
-      context.read<info>().one(it[0].name);
+      context.read<ContentINFO>().one(it[0].name);
       logger.i("retro2 hahaha");
     });
   }
@@ -151,7 +151,7 @@ class _yapState extends State<yap> {
             client.getTasks().then((it) {
               setState(() {
                 res = it[2].name;
-                context.read<info>().one(res);
+                context.read<ContentINFO>().one(res);
                 logger.i(res);
               });
             });
@@ -162,7 +162,7 @@ class _yapState extends State<yap> {
               mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
                 Text(
-                  context.watch<info>().res.toString()+'${widget.ress}',
+                  context.watch<ContentINFO>().res.toString()+'${widget.ress}',
                   style: TextStyle(
                     fontFamily: 'BalsamiqSans',
                     fontSize: 40.0,
