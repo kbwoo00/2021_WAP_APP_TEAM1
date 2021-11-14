@@ -89,6 +89,11 @@ _`final`_
 ### **_Constructors_**
 
 ```dart
+  TGTtop_bar({
+    Key? key,
+    required this.title,
+    required this.onPressed,
+  }) : super(key: key);
 
 ```
 
@@ -106,8 +111,6 @@ The primary content of the TGTTopBar.
 
 _`final`_
 
-**padding**→ EdgeInsetsGeometry?
+**title**
 
-The internal padding for the button's child.
-
-_`final`_
+_`var`_
