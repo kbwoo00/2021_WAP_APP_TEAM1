@@ -1,25 +1,23 @@
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
-import 'package:hi_flt/widget/tgtcontentwidget.dart';
-import 'package:hi_flt/widget/top_bar.dart';
-import 'package:hi_flt/widget/tgtcontentwidget2.dart';
 import 'package:provider/provider.dart';
-import 'package:hi_flt/providers/test.dart';
-import 'TGTAPI.dart';
-import 'main.dart';
-import 'providers/contentinfo_retro.dart';
+import '../ui/tgt_side_bar.dart';
+import '../ui/tgttop_bar.dart';
+import '../ui/tgtcontentwidget.dart';
+import '../../Controller/Retrofit/TGTAPI.dart';
+import '../../Controller/Provider/contentinfo_retro.dart';
 
-void main() {
-  runApp(
-    MultiProvider(
-      providers: [
-        ChangeNotifierProvider(create: (_) => ContentINFO()),
-        // ChangeNotifierProvider(create: (_) => ContentINFO()),
-      ],
-      child: TGTlistpage(),
-    ),
-  );
-}
+// void main() {
+//   runApp(
+//     MultiProvider(
+//       providers: [
+//         ChangeNotifierProvider(create: (_) => ContentINFO()),
+//         // ChangeNotifierProvider(create: (_) => ContentINFO()),
+//       ],
+//       child: TGTlistpage(),
+//     ),
+//   );
+// }
 
 class TGTlistpage extends StatefulWidget {
   const TGTlistpage({Key? key}) : super(key: key);
@@ -52,6 +50,8 @@ class _TGTlistpageState extends State<TGTlistpage> {
     //print(_controller.offset);
   }
 
+  final key1 = const Key('key1');
+
   void initState() {
     _controller = ScrollController();
     _controller.addListener(_scrollListener);
@@ -76,42 +76,41 @@ class _TGTlistpageState extends State<TGTlistpage> {
   //   super.dispose();
   // }
 
-
   //var testmap = { 'title':'안녕하세요', 'title2':'하이요'};
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      home: Scaffold(
-        appBar: AppBar(
-          title: Text('together'),
-          centerTitle: false,
-          elevation: 0.0,
-          leading: IconButton(
-            icon: Icon(Icons.arrow_left_rounded),
-            onPressed: () {
-              print('gotoback(navigation위젯');
-            },
-          ),
-        ),
-        backgroundColor: Colors.cyan,
-        body: SafeArea(
-          child: ListView.builder(
-            controller: _controller,
-            itemCount: context.watch<ContentINFO>().TGTinfo.length,
-            itemBuilder: (BuildContext context, int index){
-              return TGTContentWidget(
-                TGTlist: context.watch<ContentINFO>().TGTinfo[index],
-                test: context.watch<ContentINFO>().res,
-              );
-            }, //separatorBuilder: (BuildContext context, int index) => const Divider(),
-          ),
+    return Scaffold(
+      key: key1,
+      endDrawer: TGTSideBar(),
+      appBar: TGTtop_bar(appBar: AppBar(), title: "Contents list", key: key1),
+      // appBar: AppBar(
+      //   title: Text('together'),
+      //   centerTitle: false,
+      //   elevation: 0.0,
+      //   leading: IconButton(
+      //     icon: Icon(Icons.arrow_left_rounded),
+      //     onPressed: () {
+      //       print('gotoback(navigation위젯');
+      //     },
+      //   ),
+      // ),
+      backgroundColor: Colors.cyan,
+      body: SafeArea(
+        child: ListView.builder(
+          controller: _controller,
+          itemCount: context.watch<ContentINFO>().TGTinfo.length,
+          itemBuilder: (BuildContext context, int index) {
+            return TGTContentWidget(
+              TGTlist: context.watch<ContentINFO>().TGTinfo[index],
+              test: context.watch<ContentINFO>().res,
+            );
+          }, //separatorBuilder: (BuildContext context, int index) => const Divider(),
         ),
       ),
     );
   }
 }
-
 
 // class TGTlistpage extends StatelessWidget {
 //

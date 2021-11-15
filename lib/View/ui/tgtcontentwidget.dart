@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:hi_flt/TGTAPI.dart';
+import 'package:togetor/Controller/Retrofit/TGTAPI.dart';
 
 class TGTContentWidget extends StatefulWidget {
   final TGTlist;
@@ -10,14 +10,17 @@ class TGTContentWidget extends StatefulWidget {
   _TGTContentWidgetState createState() => _TGTContentWidgetState();
 }
 
+
 class _TGTContentWidgetState extends State<TGTContentWidget> {
   @override
   void initState() {
     super.initState();
     print('hi');
     //print(widget.testlist.length);
-    print("${widget.test}");
+    //print("${widget.test}");
   }
+  //var imageurl = "http://10.0.2.2:5000/image/${widget.TGTlist.id}";
+
 
   @override
   Widget build(BuildContext context) {
@@ -36,20 +39,20 @@ class _TGTContentWidgetState extends State<TGTContentWidget> {
               flex: 4,
               child: Container(
                 height: double.infinity,
-                  decoration: BoxDecoration(
-                    border: Border.all(
-                      width: 0.3,
-                      color: Colors.white70,
-                    ),
-                    color: Colors.black,
-                    // borderRadius: BorderRadius.only(
-                    //   topLeft: Radius.circular(10),
-                    // ),
-                    borderRadius: const BorderRadius.horizontal(
-                      left: Radius.circular(10),
-                      right: Radius.circular(10),
-                    ),
+                decoration: BoxDecoration(
+                  border: Border.all(
+                    width: 0.3,
+                    color: Colors.white70,
                   ),
+                  color: Colors.black,
+                  // borderRadius: BorderRadius.only(
+                  //   topLeft: Radius.circular(10),
+                  // ),
+                  borderRadius: const BorderRadius.horizontal(
+                    left: Radius.circular(10),
+                    right: Radius.circular(10),
+                  ),
+                ),
                 child: ClipRRect(
                   borderRadius: const BorderRadius.horizontal(
                     left: Radius.circular(10),
@@ -59,9 +62,15 @@ class _TGTContentWidgetState extends State<TGTContentWidget> {
                   //   'images/415.PNG',
                   //   fit: BoxFit.fill,
                   // ),
-                    child: Image.network(
-                        "http://10.0.2.2:5000/image/${widget.TGTlist.id}"
-                    ),
+                  child: Builder(builder: (context) {
+                    if (widget.TGTlist is Oproduct) {
+                      return Image.network(
+                          "http://10.0.2.2:5000/image/${widget.TGTlist.id}");
+                    } else {
+                      return Image.network(
+                          'https://pds.joongang.co.kr/news/component/htmlphoto_mmdata/201912/13/ed91135f-1189-429d-ae2a-507664b03924.jpg');
+                    }
+                  }),
                 ),
               ),
             ),
@@ -81,20 +90,53 @@ class _TGTContentWidgetState extends State<TGTContentWidget> {
                                   MediaQuery.of(context).size.width * 0.02),
                               alignment: Alignment.centerLeft,
                               height: double.infinity,
-                              child: Text(
-                                "${widget.TGTlist.title}",
-                                maxLines:1,
-                                overflow: TextOverflow.ellipsis,
-                                style: TextStyle(
-                                  height: 1,
-                                  fontFamily: 'BalsamiqSans',
-                                  color: Colors.black,
-                                  fontWeight: FontWeight.bold,
-                                  fontStyle: FontStyle.normal,
-                                  fontSize:
+                              child: Builder(builder: (context) {
+                                if(widget.TGTlist is Oproduct){
+                                  return Text(
+                                    "${widget.TGTlist.title}",
+                                    maxLines: 1,
+                                    overflow: TextOverflow.ellipsis,
+                                    style: TextStyle(
+                                      height: 1,
+                                      fontFamily: 'BalsamiqSans',
+                                      color: Colors.black,
+                                      fontWeight: FontWeight.bold,
+                                      fontStyle: FontStyle.normal,
+                                      fontSize:
                                       MediaQuery.of(context).size.width * 0.045,
-                                ),
-                              ),
+                                    ),
+                                  );
+                                }else{
+                                  return Text(
+                                    "test title",
+                                    maxLines: 1,
+                                    overflow: TextOverflow.ellipsis,
+                                    style: TextStyle(
+                                      height: 1,
+                                      fontFamily: 'BalsamiqSans',
+                                      color: Colors.black,
+                                      fontWeight: FontWeight.bold,
+                                      fontStyle: FontStyle.normal,
+                                      fontSize:
+                                      MediaQuery.of(context).size.width * 0.045,
+                                    ),
+                                  );
+                                }
+                              }),
+                              // child: Text(
+                              //   "${widget.TGTlist.title}",
+                              //   maxLines: 1,
+                              //   overflow: TextOverflow.ellipsis,
+                              //   style: TextStyle(
+                              //     height: 1,
+                              //     fontFamily: 'BalsamiqSans',
+                              //     color: Colors.black,
+                              //     fontWeight: FontWeight.bold,
+                              //     fontStyle: FontStyle.normal,
+                              //     fontSize:
+                              //         MediaQuery.of(context).size.width * 0.045,
+                              //   ),
+                              // ),
                             ),
                           ),
                           const Expanded(
@@ -143,19 +185,50 @@ class _TGTContentWidgetState extends State<TGTContentWidget> {
                         ),
                         alignment: Alignment.topLeft,
                         width: double.infinity,
-                        child: Text(
-                          "${widget.TGTlist.detail}",
-                          maxLines:3,
-                          overflow: TextOverflow.fade,
-                          style: TextStyle(
-                            height: 1.2,
-                            fontFamily: 'BalsamiqSans',
-                            color: Colors.black,
-                            fontWeight: FontWeight.normal,
-                            fontStyle: FontStyle.normal,
-                            fontSize: MediaQuery.of(context).size.width * 0.04,
-                          ),
-                        ),
+                        child: Builder(builder: (context) {
+                          if(widget.TGTlist is Oproduct){
+                            return Text(
+                              "${widget.TGTlist.detail}",
+                              maxLines: 3,
+                              overflow: TextOverflow.fade,
+                              style: TextStyle(
+                                height: 1.2,
+                                fontFamily: 'BalsamiqSans',
+                                color: Colors.black,
+                                fontWeight: FontWeight.normal,
+                                fontStyle: FontStyle.normal,
+                                fontSize: MediaQuery.of(context).size.width * 0.04,
+                              ),
+                            );
+                          }else{
+                            return Text(
+                              "test detail hahahoho",
+                              maxLines: 3,
+                              overflow: TextOverflow.fade,
+                              style: TextStyle(
+                                height: 1.2,
+                                fontFamily: 'BalsamiqSans',
+                                color: Colors.black,
+                                fontWeight: FontWeight.normal,
+                                fontStyle: FontStyle.normal,
+                                fontSize: MediaQuery.of(context).size.width * 0.04,
+                              ),
+                            );
+                          }
+                        }),
+                        // child: Text(
+                        //   "${widget.TGTlist.detail}",
+                        //   maxLines: 3,
+                        //   overflow: TextOverflow.fade,
+                        //   style: TextStyle(
+                        //     height: 1.2,
+                        //     fontFamily: 'BalsamiqSans',
+                        //     color: Colors.black,
+                        //     fontWeight: FontWeight.normal,
+                        //     fontStyle: FontStyle.normal,
+                        //     fontSize: MediaQuery.of(context).size.width * 0.04,
+                        //   ),
+                        // ),
                       ),
                     ),
                     Expanded(
@@ -173,17 +246,44 @@ class _TGTContentWidgetState extends State<TGTContentWidget> {
                             0),
                         alignment: Alignment.topLeft,
                         width: double.infinity,
-                        child: Text(
-                          "${widget.TGTlist.nowuser}/${widget.TGTlist.inguser}",
-                          style: TextStyle(
-                            height: 1.2,
-                            fontFamily: 'BalsamiqSans',
-                            color: Colors.black,
-                            fontWeight: FontWeight.normal,
-                            fontStyle: FontStyle.normal,
-                            fontSize: MediaQuery.of(context).size.width * 0.035,
-                          ),
-                        ),
+                        child: Builder(builder: (context) {
+                          if(widget.TGTlist is Oproduct){
+                            return Text(
+                              "${widget.TGTlist.nowuser}/${widget.TGTlist.inguser}",
+                              style: TextStyle(
+                                height: 1.2,
+                                fontFamily: 'BalsamiqSans',
+                                color: Colors.black,
+                                fontWeight: FontWeight.normal,
+                                fontStyle: FontStyle.normal,
+                                fontSize: MediaQuery.of(context).size.width * 0.035,
+                              ),
+                            );
+                          }else{
+                            return Text(
+                              "1/4",
+                              style: TextStyle(
+                                height: 1.2,
+                                fontFamily: 'BalsamiqSans',
+                                color: Colors.black,
+                                fontWeight: FontWeight.normal,
+                                fontStyle: FontStyle.normal,
+                                fontSize: MediaQuery.of(context).size.width * 0.035,
+                              ),
+                            );
+                          }
+                        }),
+                        // child: Text(
+                        //   "${widget.TGTlist.nowuser}/${widget.TGTlist.inguser}",
+                        //   style: TextStyle(
+                        //     height: 1.2,
+                        //     fontFamily: 'BalsamiqSans',
+                        //     color: Colors.black,
+                        //     fontWeight: FontWeight.normal,
+                        //     fontStyle: FontStyle.normal,
+                        //     fontSize: MediaQuery.of(context).size.width * 0.035,
+                        //   ),
+                        // ),
                       ),
                     ),
                   ],

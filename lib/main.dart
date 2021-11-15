@@ -1,19 +1,127 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:togetor/ui/tgtbutton.dart';
+import 'package:provider/provider.dart';
+
+import 'View/page/tgt_mypage.dart';
+import 'View/page/tgtcontentdetail.dart';
+import 'View/page/tgtlistpage.dart';
+import 'View/page/tgtaddpage.dart';
+import 'View/ui/tgtbutton.dart';
+import 'Controller/Provider/contentinfo_retro.dart';
+import 'Controller/Provider/counterProvider.dart';
+
 import 'package:http/http.dart' as http;
+import 'package:togetor/View/ui/tgtcontentwidget.dart';
 import 'dart:convert' as convert;
 
-import 'package:togetor/ui/tgtcontentdetail.dart';
 
-void main() => runApp(const MyApp());
+void main() {
+  runApp(
+    MaterialApp(
+      home: MyApp(),
+    ),
+  );
+}
 
 class MyApp extends StatelessWidget {
   const MyApp({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return const MaterialApp(home: TGTContentDetail());
+    return Scaffold(
+        backgroundColor: Colors.white70,
+        body: SafeArea(
+            child: Center(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.spaceAround,
+            children: <Widget>[
+              ElevatedButton(
+                onPressed: () {
+                  Navigator.push(
+                      context,
+                    MaterialPageRoute(
+                        builder: (context) => ListenableProvider(
+                        create: (context) => CountProvider(),
+                        builder: (context, child) => add(),
+                    )),
+                  );
+                },
+                child: Text('등록 페이지'),
+              ),
+              ElevatedButton(
+                onPressed: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => ListenableProvider(
+                            create: (context) => ContentINFO(),
+                            builder: (context, child) => TGTlistpage(),
+                        )
+                    ),
+                  );
+                },
+                child: Text('목록 페이지'),
+              ),
+              ElevatedButton(
+                onPressed: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => ListenableProvider(
+                          create: (context) => ContentINFO(),
+                          builder: (context, child) => TGTContentDetail(),
+                        )
+                    ),
+                  );
+                },
+                child: Text('상세 페이지'),
+              ),
+              ElevatedButton(
+                onPressed: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => ListenableProvider(
+                          create: (context) => ContentINFO(),
+                          builder: (context, child) => TGTMyPageWidget(),
+                        )
+                    ),
+                  );
+                },
+                child: Text('마이페이지'),
+              ),
+              TGTButton(
+                child: const Icon(
+                  Icons.add,
+                  color: Colors.white,
+                  size: 30.0,
+                ),
+                onPressed: () {
+                  print("button add");
+                },
+              ),
+            ],
+          ),
+        )),
+      );
+  }
+}
+class add2 extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: Text('SecondScreen'),
+      ),
+      body: Center(
+        child: RaisedButton(
+          child: Text('Go First Screen'),
+          onPressed: () {
+            Navigator.pop(context);
+          },
+        ),
+      ),
+    );
   }
 }

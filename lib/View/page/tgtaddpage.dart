@@ -5,18 +5,22 @@ import 'package:flutter/services.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:provider/provider.dart';
-import 'package:together/src/Provider/counter_Provider.dart';
+import '../ui/tgt_side_bar.dart';
+import '../ui/tgttop_bar.dart';
+//import 'package:together/src/Provider/counter_Provider.dart';
+//import 'package:togetor/Controller/Provider/counterProvider.dart';
+import '../../Controller/Provider/counterProvider.dart';
 
-void main() {
-  runApp(
-    MultiProvider(
-      providers: [
-        ChangeNotifierProvider(create: (BuildContext context) => CountProvider()),
-      ],
-      child: add(),
-    ),
-  );
-}
+// void main() {
+//   runApp(
+//     MultiProvider(
+//       providers: [
+//         ChangeNotifierProvider(create: (BuildContext context) => CountProvider()),
+//       ],
+//       child: add(),
+//     ),
+//   );
+// }
 class add extends StatefulWidget {
   add({Key? key}) : super(key: key);
   @override
@@ -36,7 +40,7 @@ class add extends StatefulWidget {
   var _selectedValue;
 
   late CountProvider _counterProvider;
-  final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey();
+  final key2 = const Key('key2');
 
   @override
   Widget build(BuildContext context) {
@@ -54,44 +58,45 @@ class add extends StatefulWidget {
     }
 
     return Scaffold(
-
-      key : _scaffoldKey,
-      endDrawer : Container(
-        width:250,
-        child : Drawer(
-            child : ListView(
-              padding : EdgeInsets.zero,
-              children: <Widget>[
-                DrawerHeader(
-                  child:Text('Drawer'),
-                  decoration: BoxDecoration(
-                    color:Colors.blue,),
-                ),
-              ],
-            )
-        ),
-      ),
-      appBar: AppBar(
-          title: Text('등록'),
-          centerTitle: true, elevation:0.0,
-          leading: IconButton(
-              icon:Icon(Icons.arrow_left_rounded),
-              onPressed: (){
-                print('gotoback(navigation위젯');
-              }
-          ),
-          actions: <Widget>[
-            Container(
-              child: IconButton(
-                iconSize: 40,
-                color: Colors.black,
-                icon: Icon(Icons.menu),
-                onPressed: () {
-                  _scaffoldKey.currentState!.openEndDrawer();
-                },
-              ),
-            )
-          ]),
+      key : key2,
+      // endDrawer : Container(
+      //   width:250,
+      //   child : Drawer(
+      //       child : ListView(
+      //         padding : EdgeInsets.zero,
+      //         children: <Widget>[
+      //           DrawerHeader(
+      //             child:Text('Drawer'),
+      //             decoration: BoxDecoration(
+      //               color:Colors.blue,),
+      //           ),
+      //         ],
+      //       )
+      //   ),
+      // ),
+      endDrawer:TGTSideBar(),
+      appBar: TGTtop_bar(key: key2, appBar: AppBar(), title: "등록 페이지"),
+      // appBar: AppBar(
+      //     title: Text('등록'),
+      //     centerTitle: true, elevation:0.0,
+      //     leading: IconButton(
+      //         icon:Icon(Icons.arrow_left_rounded),
+      //         onPressed: (){
+      //           print('gotoback(navigation위젯');
+      //         }
+      //     ),
+      //     actions: <Widget>[
+      //       Container(
+      //         child: IconButton(
+      //           iconSize: 40,
+      //           color: Colors.black,
+      //           icon: Icon(Icons.menu),
+      //           onPressed: () {
+      //             _scaffoldKey.currentState!.openEndDrawer();
+      //           },
+      //         ),
+      //       )
+      //     ]),
 
       body: SafeArea(
           child: Column(

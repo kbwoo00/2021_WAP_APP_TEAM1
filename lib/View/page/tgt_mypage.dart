@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import '../ui/tgt_side_bar.dart';
+import '../ui/tgtcontentwidget.dart';
+import '../ui/tgttop_bar.dart';
 
 class TGTMyPageWidget extends StatefulWidget {
   const TGTMyPageWidget({Key? key}) : super(key: key);
@@ -12,27 +15,29 @@ List<bool> _buttonsState = List.generate(2, (index) => false);
 class _TGTMyPageWidgetState extends State<TGTMyPageWidget> {
   @override
   Widget build(BuildContext context) {
-    final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey();
+    final key4 = const Key('key4');
 
     return Scaffold(
-      appBar: AppBar(
-        backgroundColor: Colors.white,
-        toolbarHeight: 65,
-        elevation: 0.0,
-        title: Text(
-          "마이페이지",
-          style: TextStyle(color: Colors.black, fontSize: 25),
-        ),
-        leading: IconButton(
-          iconSize: 30,
-          color: Colors.black,
-          icon: Icon(Icons.arrow_back),
-          onPressed: () {
-            Navigator.pop(context);
-          },
-        ),
-      ),
-      key: _scaffoldKey,
+      key: key4,
+      endDrawer:TGTSideBar(),
+      appBar: TGTtop_bar(appBar: AppBar(), title:"Mypage", key: key4),
+      // appBar: AppBar(
+      //   backgroundColor: Colors.cyan,
+      //   toolbarHeight: 65,
+      //   elevation: 0.0,
+      //   title: Text(
+      //     "마이페이지",
+      //     style: TextStyle(color: Colors.black, fontSize: 25),
+      //   ),
+      //   leading: IconButton(
+      //     iconSize: 30,
+      //     color: Colors.black,
+      //     icon: Icon(Icons.arrow_back),
+      //     onPressed: () {
+      //       Navigator.pop(context);
+      //     },
+      //   ),
+      // ),
       body: Scaffold(
         body: Column(
           children: [
@@ -102,57 +107,58 @@ class _TGTMyPageWidgetState extends State<TGTMyPageWidget> {
                 isSelected: _buttonsState,
               ),
             ),
-            Card(
-              child: Container(
-                height: 100,
-                width: MediaQuery.of(context).size.width * 0.9,
-                color: Colors.white,
-                child: Row(
-                  children: [
-                    Center(
-                      child: Padding(
-                        padding: EdgeInsets.all(10),
-                        child: Expanded(
-                          child: Image.asset("asset/images/sample.jpg"),
-                          flex: 2,
-                        ),
-                      ),
-                    ),
-                    Expanded(
-                      child: Container(
-                        alignment: Alignment.topLeft,
-                        child: Column(
-                          children: [
-                            Expanded(
-                              flex: 5,
-                              child: ListTile(
-                                title: Text("풋살할 사람"),
-                                subtitle: Text("오늘 18시 풋살 하실 분 구합니다."),
-                              ),
-                            ),
-                            Expanded(
-                              flex: 5,
-                              child: Row(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: [
-                                  Text(
-                                    "1 / 12",
-                                    style: TextStyle(
-                                      color: const Color(0xff18A0FB),
-                                    ),
-                                  )
-                                ],
-                              ),
-                            )
-                          ],
-                        ),
-                      ),
-                      flex: 8,
-                    ),
-                  ],
-                ),
-              ),
-            )
+            TGTContentWidget(),
+            // Card(
+            //   child: Container(
+            //     height: 100,
+            //     width: MediaQuery.of(context).size.width * 0.9,
+            //     color: Colors.white,
+            //     child: Row(
+            //       children: [
+            //         Center(
+            //           child: Padding(
+            //             padding: EdgeInsets.all(10),
+            //             child: Expanded(
+            //               child: Image.asset("asset/images/sample.jpg"),
+            //               flex: 2,
+            //             ),
+            //           ),
+            //         ),
+            //         Expanded(
+            //           child: Container(
+            //             alignment: Alignment.topLeft,
+            //             child: Column(
+            //               children: [
+            //                 Expanded(
+            //                   flex: 5,
+            //                   child: ListTile(
+            //                     title: Text("풋살할 사람"),
+            //                     subtitle: Text("오늘 18시 풋살 하실 분 구합니다."),
+            //                   ),
+            //                 ),
+            //                 Expanded(
+            //                   flex: 5,
+            //                   child: Row(
+            //                     mainAxisAlignment: MainAxisAlignment.center,
+            //                     children: [
+            //                       Text(
+            //                         "1 / 12",
+            //                         style: TextStyle(
+            //                           color: const Color(0xff18A0FB),
+            //                         ),
+            //                       )
+            //                     ],
+            //                   ),
+            //                 )
+            //               ],
+            //             ),
+            //           ),
+            //           flex: 8,
+            //         ),
+            //       ],
+            //     ),
+            //   ),
+            // )
           ],
         ),
       ),

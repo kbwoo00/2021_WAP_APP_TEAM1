@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import '../page/tgt_mypage_widget.dart';
+import '../page/tgt_mypage.dart';
+// import '../page/tgt_mypage_widget.dart';
 
 class TGTSideBar extends StatefulWidget {
   const TGTSideBar({Key? key}) : super(key: key);
