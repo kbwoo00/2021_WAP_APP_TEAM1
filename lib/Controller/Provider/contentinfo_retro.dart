@@ -4,7 +4,7 @@ import '../Retrofit/TGTAPI.dart';
 
 
 class ContentINFO with ChangeNotifier {
-   var _res = "loading";
+   var _res = 6;
    get res => _res;
 
    var _res2 = "description";
@@ -13,7 +13,7 @@ class ContentINFO with ChangeNotifier {
    var _TGTinfo = [];
    get TGTinfo => _TGTinfo;
 
-   void one(String m) {
+   void one(int m) {
      _res = m ;
      notifyListeners();
    }
@@ -35,7 +35,7 @@ class ContentINFO with ChangeNotifier {
      RestClient client = RestClient(dio);
 
      client.getoproduct().then((it) async{
-       _res = it[0].title;
+       _res2 = it[0].title;
        print("----------------------------");
      });
      notifyListeners();

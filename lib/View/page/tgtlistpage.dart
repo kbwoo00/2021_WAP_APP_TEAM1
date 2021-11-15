@@ -84,17 +84,6 @@ class _TGTlistpageState extends State<TGTlistpage> {
       key: key1,
       endDrawer: TGTSideBar(),
       appBar: TGTtop_bar(appBar: AppBar(), title: "Contents list", key: key1),
-      // appBar: AppBar(
-      //   title: Text('together'),
-      //   centerTitle: false,
-      //   elevation: 0.0,
-      //   leading: IconButton(
-      //     icon: Icon(Icons.arrow_left_rounded),
-      //     onPressed: () {
-      //       print('gotoback(navigation위젯');
-      //     },
-      //   ),
-      // ),
       backgroundColor: Colors.cyan,
       body: SafeArea(
         child: ListView.builder(
@@ -103,7 +92,7 @@ class _TGTlistpageState extends State<TGTlistpage> {
           itemBuilder: (BuildContext context, int index) {
             return TGTContentWidget(
               TGTlist: context.watch<ContentINFO>().TGTinfo[index],
-              test: context.watch<ContentINFO>().res,
+              index: index,
             );
           }, //separatorBuilder: (BuildContext context, int index) => const Divider(),
         ),

@@ -1,5 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/src/provider.dart';
+import '../../Controller/Provider/contentinfo_retro.dart';
 import '../ui/tgt_side_bar.dart';
 import '../ui/tgttop_bar.dart';
 import '../ui/tgtbutton.dart';
@@ -7,7 +9,8 @@ import 'package:http/http.dart' as http;
 import 'dart:convert' as convert;
 
 class TGTContentDetail extends StatefulWidget {
-  const TGTContentDetail({Key? key}) : super(key: key);
+  final index;
+  const TGTContentDetail({Key? key, this.index}) : super(key: key);
 
   @override
   _TGTContentDetailState createState() => _TGTContentDetailState();
@@ -32,6 +35,18 @@ class _TGTContentDetailState extends State<TGTContentDetail> {
   }
 
   final key3 = const Key('key3');
+
+  void uptest() {
+    if(widget.index is int){
+      int index = widget.index;
+      int id = context.watch<ContentINFO>().TGTinfo[index].id;
+      _title = context.watch<ContentINFO>().TGTinfo[index].title;
+      _detail = context.watch<ContentINFO>().TGTinfo[index].detail;
+      _participant = context.watch<ContentINFO>().TGTinfo[index].nowuser;
+      _maxParticipant = context.watch<ContentINFO>().TGTinfo[index].inguser;
+      _contentImage = "http://10.0.2.2:5000/image/$id";
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
