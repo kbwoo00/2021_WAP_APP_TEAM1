@@ -7,6 +7,16 @@ import 'package:path_provider/path_provider.dart';
 import 'package:provider/provider.dart';
 import 'package:together/src/Provider/counter_Provider.dart';
 
+void main() {
+  runApp(
+    MultiProvider(
+      providers: [
+        ChangeNotifierProvider(create: (BuildContext context) => CountProvider()),
+      ],
+      child: add(),
+    ),
+  );
+}
 class add extends StatefulWidget {
   add({Key? key}) : super(key: key);
   @override
