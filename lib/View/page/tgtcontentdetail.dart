@@ -36,7 +36,7 @@ class _TGTContentDetailState extends State<TGTContentDetail> {
 
   final key3 = const Key('key3');
 
-  void uptest() {
+  void update() {
     if(widget.index is int){
       int index = widget.index;
       int id = context.watch<ContentINFO>().TGTinfo[index].id;
@@ -50,6 +50,7 @@ class _TGTContentDetailState extends State<TGTContentDetail> {
 
   @override
   Widget build(BuildContext context) {
+    update();
     var participateTGTButtons = <TGTButton>[
       TGTButton(
         color: const Color(0xffffffff),

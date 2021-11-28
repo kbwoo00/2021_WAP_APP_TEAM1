@@ -15,13 +15,14 @@ import 'package:http/http.dart' as http;
 import 'package:togetor/View/ui/tgtcontentwidget.dart';
 import 'dart:convert' as convert;
 
-
 void main() {
-  runApp(
-    MaterialApp(
-      home: MyApp(),
-    ),
-  );
+  runApp(MultiProvider(
+      providers: [
+        ChangeNotifierProvider(create: (_) => ContentINFO()),
+      ],
+      child: MaterialApp(
+        home: MyApp(),
+      )));
 }
 
 class MyApp extends StatelessWidget {
@@ -30,83 +31,73 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        backgroundColor: Colors.white70,
-        body: SafeArea(
-            child: Center(
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.spaceAround,
-            children: <Widget>[
-              ElevatedButton(
-                onPressed: () {
-                  Navigator.push(
-                      context,
-                    MaterialPageRoute(
-                        builder: (context) => ListenableProvider(
-                        create: (context) => CountProvider(),
-                        builder: (context, child) => add(),
-                    )),
-                  );
-                },
-                child: Text('등록 페이지'),
+      backgroundColor: Colors.white70,
+      body: SafeArea(
+          child: Center(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.spaceAround,
+          children: <Widget>[
+            ElevatedButton(
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => add(),
+                  ),
+                );
+              },
+              child: Text('등록 페이지'),
+            ),
+            ElevatedButton(
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => TGTlistpage(),
+                  ),
+                );
+              },
+              child: Text('목록 페이지'),
+            ),
+            ElevatedButton(
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => TGTContentDetail(),
+                  ),
+                );
+              },
+              child: Text('상세 페이지'),
+            ),
+            ElevatedButton(
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => TGTMyPageWidget(),
+                  ),
+                );
+              },
+              child: Text('마이페이지'),
+            ),
+            TGTButton(
+              child: const Icon(
+                Icons.add,
+                color: Colors.white,
+                size: 30.0,
               ),
-              ElevatedButton(
-                onPressed: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                        builder: (context) => ListenableProvider(
-                            create: (context) => ContentINFO(),
-                            builder: (context, child) => TGTlistpage(),
-                        )
-                    ),
-                  );
-                },
-                child: Text('목록 페이지'),
-              ),
-              ElevatedButton(
-                onPressed: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                        builder: (context) => ListenableProvider(
-                          create: (context) => ContentINFO(),
-                          builder: (context, child) => TGTContentDetail(),
-                        )
-                    ),
-                  );
-                },
-                child: Text('상세 페이지'),
-              ),
-              ElevatedButton(
-                onPressed: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                        builder: (context) => ListenableProvider(
-                          create: (context) => ContentINFO(),
-                          builder: (context, child) => TGTMyPageWidget(),
-                        )
-                    ),
-                  );
-                },
-                child: Text('마이페이지'),
-              ),
-              TGTButton(
-                child: const Icon(
-                  Icons.add,
-                  color: Colors.white,
-                  size: 30.0,
-                ),
-                onPressed: () {
-                  print("button add");
-                },
-              ),
-            ],
-          ),
-        )),
-      );
+              onPressed: () {
+                print("button add");
+              },
+            ),
+          ],
+        ),
+      )),
+    );
   }
 }
+
 class add2 extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
