@@ -34,6 +34,10 @@ dependencies:
     sdk: flutter
   web_socket_channel: ^2.1.0
   http: ^0.13.0+2
+  google_maps_flutter: ^2.1.1
+  location: ^4.3.0
+  google_place: ^0.4.3
+  geolocator: ^7.2.0+1
 
   json_annotation: any
   retrofit: any
