@@ -9,7 +9,7 @@ import 'View/page/tgtlistpage.dart';
 import 'View/page/tgtaddpage.dart';
 import 'View/ui/tgtbutton.dart';
 import 'Controller/Provider/contentinfo_retro.dart';
-import 'Controller/Provider/counterProvider.dart';
+import 'Controller/Provider/counter_provider.dart';
 
 import 'package:http/http.dart' as http;
 import 'package:togetor/View/ui/tgtcontentwidget.dart';
@@ -19,6 +19,7 @@ void main() {
   runApp(MultiProvider(
       providers: [
         ChangeNotifierProvider(create: (_) => ContentINFO()),
+        ChangeNotifierProvider(create: (BuildContext context) => CountProvider()),
       ],
       child: MaterialApp(
         home: MyApp(),
@@ -42,7 +43,7 @@ class MyApp extends StatelessWidget {
                 Navigator.push(
                   context,
                   MaterialPageRoute(
-                    builder: (context) => add(),
+                    builder: (context) => Add(),
                   ),
                 );
               },
