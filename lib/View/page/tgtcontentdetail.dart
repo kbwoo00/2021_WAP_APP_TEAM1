@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/src/provider.dart';
+import 'package:togetor/View/page/tgtchatpage.dart';
 import '../../Controller/Provider/contentinfo_retro.dart';
 import '../ui/tgt_side_bar.dart';
 import '../ui/tgttop_bar.dart';
@@ -31,13 +32,12 @@ class _TGTContentDetailState extends State<TGTContentDetail> {
   @override
   void initState() {
     super.initState();
-    // getContent();
   }
 
   final key3 = const Key('key3');
 
   void uptest() {
-    if(widget.index is int){
+    if (widget.index is int) {
       int index = widget.index;
       int id = context.watch<ContentINFO>().TGTinfo[index].id;
       _title = context.watch<ContentINFO>().TGTinfo[index].title;
@@ -84,7 +84,14 @@ class _TGTContentDetailState extends State<TGTContentDetail> {
           ),
         ),
         onPressed: () {
-          print('hihi');
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (_) => const TGTChatPage(
+                productID: 1,
+              ),
+            ),
+          );
         },
       ),
     ];
@@ -214,22 +221,4 @@ class _TGTContentDetailState extends State<TGTContentDetail> {
       ),
     );
   }
-
-  // void getContent() async {
-  //   String TGTContentUrl = "http://localhost:8080/contents/1";
-  //   var TGTContentResponse = await http.get(TGTContentUrl);
-  //   var TGTContentData =
-  //       convert.jsonDecode(convert.utf8.decode(TGTContentResponse.bodyBytes));
-  //   setState(
-  //     () {
-  //       _title = TGTContentData["title"];
-  //       _detail = TGTContentData["detail"];
-  //       _contentImage = TGTContentData["contentImage"];
-  //       _participant = TGTContentData["Participant"];
-  //       _maxParticipant = TGTContentData["maxParticipant"];
-  //       _createdDate = TGTContentData['createdDate'];
-  //       _limitedDate = TGTContentData["limitedDate"];
-  //     },
-  //   );
-  // }
 }
