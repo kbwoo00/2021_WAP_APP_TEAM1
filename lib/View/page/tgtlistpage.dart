@@ -5,7 +5,7 @@ import '../ui/tgt_side_bar.dart';
 import '../ui/tgttop_bar.dart';
 import '../ui/tgtcontentwidget.dart';
 import '../../Controller/Retrofit/TGTAPI.dart';
-import '../../Controller/Provider/contentinfo_retro.dart';
+import '../../Controller/Provider/info.dart';
 
 // void main() {
 //   runApp(

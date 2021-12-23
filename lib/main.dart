@@ -3,12 +3,13 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
+import 'View/page/loginpage.dart';
 import 'View/page/tgt_mypage.dart';
 import 'View/page/tgtcontentdetail.dart';
 import 'View/page/tgtlistpage.dart';
 import 'View/page/tgtaddpage.dart';
 import 'View/ui/tgtbutton.dart';
-import 'Controller/Provider/contentinfo_retro.dart';
+import 'Controller/Provider/info.dart';
 import 'Controller/Provider/counter_provider.dart';
 
 import 'package:http/http.dart' as http;
@@ -19,6 +20,7 @@ void main() {
   runApp(MultiProvider(
       providers: [
         ChangeNotifierProvider(create: (_) => ContentINFO()),
+        ChangeNotifierProvider(create: (_) => LoginINFO()),
         ChangeNotifierProvider(create: (BuildContext context) => CountProvider()),
       ],
       child: MaterialApp(
@@ -81,6 +83,17 @@ class MyApp extends StatelessWidget {
                 );
               },
               child: Text('마이페이지'),
+            ),
+            ElevatedButton(
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) => LoginPage()
+                  ),
+                );
+              },
+              child: Text('로그인 페이지'),
             ),
             TGTButton(
               child: const Icon(

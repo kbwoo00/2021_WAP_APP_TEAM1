@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/src/provider.dart';
-import '../../Controller/Provider/contentinfo_retro.dart';
+import '../../Controller/Provider/info.dart';
 import '../ui/tgt_side_bar.dart';
 import '../ui/tgttop_bar.dart';
 import '../ui/tgtbutton.dart';

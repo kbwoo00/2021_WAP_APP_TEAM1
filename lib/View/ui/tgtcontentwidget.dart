@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import '../../Controller/Provider/contentinfo_retro.dart';
+import '../../Controller/Provider/info.dart';
 import '../../Controller/Retrofit/TGTAPI.dart';
 import '../page/tgtcontentdetail.dart';
 
