@@ -114,3 +114,27 @@ _`final`_
 **title**
 
 _`var`_
+
+---
+## flutter_naver
+```dart test
+  Map<String, dynamic> toJson() =>
+      {
+        'nickname': nickname,
+        'id': id,
+        'email': email,
+        'age': age,
+        'gender': gender,
+      };
+
+  NaverAccountResult.fromJson(Map<String, dynamic> json)
+      : nickname = json['nickname'],
+        id = json['id'],
+        name = json['name'],
+        email = json['email'],
+        gender = json['gender'],
+        age = json['age'],
+        birthday = json['birthday'],
+        profileImage = json['profileImage'];
+```
+**NaverAccountResult** 클래스에 추가해주세요.
