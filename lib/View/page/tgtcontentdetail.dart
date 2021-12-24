@@ -110,7 +110,7 @@ class _TGTContentDetailState extends State<TGTContentDetail> {
           ),
         ),
         onPressed: () {
-          return null;
+          return;
         },
       ),
       TGTButton(

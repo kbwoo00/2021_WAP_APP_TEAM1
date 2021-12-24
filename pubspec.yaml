@@ -34,6 +34,7 @@ dependencies:
     sdk: flutter
   web_socket_channel: ^2.1.0
   http: ^0.13.0+2
+  intl: ^0.17.0
 
   json_annotation: any
   retrofit: any

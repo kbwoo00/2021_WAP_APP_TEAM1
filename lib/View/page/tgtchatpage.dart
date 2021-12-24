@@ -22,8 +22,13 @@ class _TGTChatPageState extends State<TGTChatPage> {
   final key3 = const Key('key3');
   final _userId = "user";
   final WebSocketChannel _channel =
-      IOWebSocketChannel.connect('ws://localhost:9000');
-  final String _title = "Chat Chat";
+      IOWebSocketChannel.connect('ws://10.0.2.2:9000');
+  final ScrollController _scrollController = ScrollController();
+
+  _scrollToBottom() {
+    _scrollController.jumpTo(_scrollController.position.maxScrollExtent + 50.0);
+  }
+
   @override
   Widget build(BuildContext context) {
     _firstMessage();
@@ -41,7 +46,7 @@ class _TGTChatPageState extends State<TGTChatPage> {
                 Expanded(
                   child: TextField(
                     decoration: InputDecoration(
-                      border: OutlineInputBorder(),
+                      border: const OutlineInputBorder(),
                       prefixIcon: const Icon(
                         Icons.message_sharp,
                       ),
@@ -75,39 +80,49 @@ class _TGTChatPageState extends State<TGTChatPage> {
         child: StreamBuilder(
           stream: _channel.stream,
           builder: (context, snapshot) {
-            if (isFirst) {
-              var jsonData = convert.json.decode(snapshot.data.toString());
-              jsonData["data"]
-                  .forEach((chat) => chatList.add(Chat.fromJson(chat)));
-              isFirst = false;
-            } else {
-              String _message = "";
-              if (snapshot.data != null) {
+            // 메세지 오면
+            if (snapshot.hasData) {
+              // 첫 입장이라면 이전 채팅 불러와야함.
+              if (isFirst) {
                 var jsonData = convert.json.decode(snapshot.data.toString());
-                _message = jsonData["data"];
+                if (jsonData["data"] != null) {
+                  jsonData["data"]
+                      .forEach((chat) => chatList.add(Chat.fromJson(chat)));
+                }
+                isFirst = false;
+              } else {
+                // 메세지 받음
+                var jsonData = convert.json.decode(snapshot.data.toString());
+                print(jsonData);
+                var _message = jsonData["data"];
+                var nowUserId = jsonData["name"].substring(2);
                 var type = jsonData["type"];
                 if (type == "newPeople") {
-                  var newChater = jsonData["newChater"];
-                  _message = "$newChater님이 입장하였습니다.";
+                  var userId = jsonData["newChater"];
+                  _message = "$userId님이 입장하였습니다.";
+                } else if (type == "leavePeople") {
+                  _message = "$jsonData['leaveChater']님이 퇴장하였습니다.";
                 }
+
                 Chat nowChat = Chat(
-                  participant: _userId,
+                  participant: nowUserId,
                   chatting: _message,
                   chatTime: DateTime.now().toString(),
                 );
-                print(_message);
+                // 메세지 추가
                 chatList.add(nowChat);
+                // 제일 아래로 스크롤
+                _scrollToBottom();
               }
             }
             return Scrollbar(
               child: ListView.builder(
+                controller: _scrollController,
                 itemCount: chatList.length,
                 itemBuilder: (BuildContext context, int index) {
-                  var _flag = "N";
+                  var _flag = false;
                   if (_userId == chatList[index].participant) {
-                    _flag = "T";
-                  } else {
-                    _flag = "F";
+                    _flag = true;
                   }
                   return ChatTile(
                     chat: chatList[index],
@@ -120,6 +135,7 @@ class _TGTChatPageState extends State<TGTChatPage> {
         ));
   }
 
+  // 처음 입장인지
   void _firstMessage() {
     var data = {
       "type": "firstinfo",
@@ -130,6 +146,7 @@ class _TGTChatPageState extends State<TGTChatPage> {
     _channel.sink.add(jsonData);
   }
 
+  // 메세지 보내
   void _sendMessage() {
     if (_controller.text.isNotEmpty) {
       var data = {
@@ -150,9 +167,10 @@ class _TGTChatPageState extends State<TGTChatPage> {
   }
 }
 
+// ChatTile
 class ChatTile extends StatelessWidget {
   final Chat chat;
-  final String userFlag;
+  final bool userFlag;
   const ChatTile({Key? key, required this.chat, required this.userFlag})
       : super(key: key);
 
@@ -161,38 +179,49 @@ class ChatTile extends StatelessWidget {
     Color color;
     TextAlign textAlign;
 
-    String flag = chat.chatting.substring(chat.chatting.length - 1);
-    if (userFlag == "T") {
-      color = Color(0x7fffffff);
+    // user 확인
+    if (userFlag) {
+      color = Color(0x7ff123456);
       textAlign = TextAlign.end;
-    } else if (userFlag == "F") {
-      color = Color(0x7fffffff);
-      textAlign = TextAlign.start;
     } else {
-      color = Color(0xf0c7c7c7);
-      textAlign = TextAlign.center;
+      color = Color(0x7f000000);
+      textAlign = TextAlign.start;
     }
-    return Container(
-      decoration: BoxDecoration(
-        color: color,
-        borderRadius: BorderRadius.circular(12.0),
-      ),
-      child: Padding(
-        padding: const EdgeInsets.all(10.0),
-        child: Text(
-          chat.chatting,
-          textAlign: textAlign,
-          style: TextStyle(
-            fontSize: 20.0,
-            fontWeight: FontWeight.w500,
-            background: Paint()..color = color,
-          ),
+
+    return Padding(
+      padding: const EdgeInsets.all(10.0),
+      child: RichText(
+        text: TextSpan(
+          children: [
+            TextSpan(
+                text: chat.participant,
+                style: const TextStyle(
+                  color: Colors.black,
+                )),
+            const TextSpan(text: "\n"),
+            TextSpan(
+              text: chat.chatting,
+              style: const TextStyle(
+                color: Color(0xff000000),
+                fontSize: 20.0,
+                fontWeight: FontWeight.w500,
+              ),
+            ),
+            const TextSpan(text: "\n"),
+            TextSpan(
+              text: chat.chatTime,
+              style: const TextStyle(
+                color: Colors.black,
+              ),
+            ),
+          ],
         ),
       ),
     );
   }
 }
 
+// Chatting 정보 담을 클래스
 class Chat {
   String participant;
   String chatting;

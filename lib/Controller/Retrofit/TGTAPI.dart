@@ -28,8 +28,9 @@ class Oproduct {
     required this.user,
     required this.title,
     required this.detail,
-});
+  });
 
-  factory Oproduct.fromJson(Map<String, dynamic> json) => _$OproductFromJson(json);
+  factory Oproduct.fromJson(Map<String, dynamic> json) =>
+      _$OproductFromJson(json);
   Map<String, dynamic> toJson() => _$OproductToJson(this);
 }
