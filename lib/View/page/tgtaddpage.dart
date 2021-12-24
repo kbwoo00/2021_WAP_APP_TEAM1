@@ -5,11 +5,13 @@ import 'package:flutter/services.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:provider/provider.dart';
+import 'package:togetor/Controller/GoogleMapService/map_bloc.dart';
 import '../ui/tgt_side_bar.dart';
 import '../ui/tgttop_bar.dart';
+import '../page/tgt_placepicker_page.dart';
 //import 'package:together/src/Provider/counter_Provider.dart';
-//import 'package:togetor/Controller/Provider/counterProvider.dart';
-import '../../Controller/Provider/counterProvider.dart';
+//import 'package:togetor/Controller/Provider/counter_provider.dart';
+import '../../Controller/Provider/counter_provider.dart';
 
 // void main() {
 //   runApp(
@@ -21,12 +23,13 @@ import '../../Controller/Provider/counterProvider.dart';
 //     ),
 //   );
 // }
-class add extends StatefulWidget {
-  add({Key? key}) : super(key: key);
+class Add extends StatefulWidget {
+  Add({Key? key}) : super(key: key);
   @override
-  _addState createState() => _addState();
+  _AddState createState() => _AddState();
 }
- class _addState extends State<add> {
+
+class _AddState extends State<Add> {
   File? image;
 
   Future<File> saveImagePermanently(String imagePath) async {
@@ -187,6 +190,8 @@ class add extends StatefulWidget {
                 padding:const EdgeInsets.all(8.0),
                 child: TextButton(
                   onPressed: (){
+                    Navigator.of(context).push(MaterialPageRoute(
+                        builder: (BuildContext context) => MapScreen()));
                   },
                   child: Text("위치 선택"),
                 ),
@@ -205,7 +210,16 @@ class add extends StatefulWidget {
                       icon: Icon(Icons.remove),
                   ),
                 ],
-              )
+              ),
+              Padding(
+                padding:const EdgeInsets.all(8.0),
+                child: TextButton(
+                  onPressed: (){
+                    print("test");
+                  },
+                  child: Text("설정"),
+                ),
+              ),
             ],
           )
 

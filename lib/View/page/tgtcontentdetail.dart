@@ -1,8 +1,12 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/src/provider.dart';
+<<<<<<< HEAD
 import 'package:togetor/View/page/tgtchatpage.dart';
 import '../../Controller/Provider/contentinfo_retro.dart';
+=======
+import '../../Controller/Provider/info.dart';
+>>>>>>> 53097a3c2606c90fe63c8332d1b6cede95ca9b97
 import '../ui/tgt_side_bar.dart';
 import '../ui/tgttop_bar.dart';
 import '../ui/tgtbutton.dart';
@@ -36,8 +40,13 @@ class _TGTContentDetailState extends State<TGTContentDetail> {
 
   final key3 = const Key('key3');
 
+<<<<<<< HEAD
   void uptest() {
     if (widget.index is int) {
+=======
+  void update() {
+    if(widget.index is int){
+>>>>>>> 53097a3c2606c90fe63c8332d1b6cede95ca9b97
       int index = widget.index;
       int id = context.watch<ContentINFO>().TGTinfo[index].id;
       _title = context.watch<ContentINFO>().TGTinfo[index].title;
@@ -50,6 +59,7 @@ class _TGTContentDetailState extends State<TGTContentDetail> {
 
   @override
   Widget build(BuildContext context) {
+    update();
     var participateTGTButtons = <TGTButton>[
       TGTButton(
         color: const Color(0xffffffff),

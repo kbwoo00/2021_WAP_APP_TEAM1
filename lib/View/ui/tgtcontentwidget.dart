@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import '../../Controller/Provider/contentinfo_retro.dart';
+import '../../Controller/Provider/info.dart';
 import '../../Controller/Retrofit/TGTAPI.dart';
 import '../page/tgtcontentdetail.dart';
 
@@ -21,8 +21,6 @@ class _TGTContentWidgetState extends State<TGTContentWidget> {
     print('hi tgtcontentwidget');
   }
 
-
-
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
@@ -30,10 +28,7 @@ class _TGTContentWidgetState extends State<TGTContentWidget> {
           Navigator.push(
             context,
             MaterialPageRoute(
-                builder: (context) => Provider(
-                  create: (context) => ContentINFO(),
-                  builder: (context, child) => TGTContentDetail(index: widget.index),
-                )
+              builder: (context) => TGTContentDetail(index: widget.index),
             ),
           );
         },
