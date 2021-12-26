@@ -198,7 +198,10 @@ class _AddState extends State<Add> {
               ),
               TextButton(
                 child: Text('위치선택'),
-                onPressed: (){},
+                onPressed: (){
+                  Navigator.of(context).push(MaterialPageRoute(
+                        builder: (BuildContext context) => MapScreen()));
+                },
               ),
               TextButton(
                 child: Text('날짜선택'),
