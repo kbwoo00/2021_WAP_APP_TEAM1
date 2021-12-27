@@ -54,7 +54,10 @@ class _TGTContentDetailState extends State<TGTContentDetail> {
           _maxParticipant = context
               .watch<ContentINFO>()
               .TGTinfo[index].inguser;
-          _contentImage = "http://10.0.2.2:5000/image/$id";
+          _contentImage = "http://192.168.11.101:5000/image/$id";
+          _createdDate = context.read<ContentINFO>().TGTinfo[index].itime;
+          _limitedDate = context.read<ContentINFO>().TGTinfo[index].deadline;
+          _place = context.read<ContentINFO>().TGTinfo[index].place;
         }
       }
 
@@ -193,6 +196,8 @@ class _TGTContentDetailState extends State<TGTContentDetail> {
                       Expanded(
                         child: Text(
                           _place,
+                          maxLines: 2,
+                          overflow: TextOverflow.ellipsis,
                           style: const TextStyle(
                             fontSize: 20.0,
                             fontWeight: FontWeight.bold,

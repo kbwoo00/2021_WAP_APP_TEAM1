@@ -6,7 +6,7 @@ import 'package:dio/dio.dart';
 
 part 'mlogin.g.dart';
 
-@RestApi(baseUrl: "http://10.0.2.2:4000")
+@RestApi(baseUrl: "http://192.168.11.101:4000")
 abstract class RestClient2 {
   factory RestClient2(Dio dio, {String baseUrl}) = _RestClient2;
 

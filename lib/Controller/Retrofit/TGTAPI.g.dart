@@ -6,16 +6,17 @@ part of 'TGTAPI.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-Oproduct _$OproductFromJson(Map<String, dynamic> json) {
-  return Oproduct(
-    id: json['id'] as int,
-    inguser: json['inguser'] as int,
-    nowuser: json['nowuser'] as int,
-    user: json['user'] as String,
-    title: json['title'] as String,
-    detail: json['detail'] as String,
-  );
-}
+Oproduct _$OproductFromJson(Map<String, dynamic> json) => Oproduct(
+      id: json['id'] as int,
+      inguser: json['inguser'] as int,
+      nowuser: json['nowuser'] as int,
+      user: json['user'] as String,
+      title: json['title'] as String,
+      detail: json['detail'] as String,
+      itime: json['itime'] as String,
+      deadline: json['deadline'] as String,
+      place: json['place'] as String,
+    );
 
 Map<String, dynamic> _$OproductToJson(Oproduct instance) => <String, dynamic>{
       'id': instance.id,
@@ -24,6 +25,9 @@ Map<String, dynamic> _$OproductToJson(Oproduct instance) => <String, dynamic>{
       'user': instance.user,
       'title': instance.title,
       'detail': instance.detail,
+      'itime': instance.itime,
+      'deadline': instance.deadline,
+      'place': instance.place,
     };
 
 // **************************************************************************
@@ -32,7 +36,7 @@ Map<String, dynamic> _$OproductToJson(Oproduct instance) => <String, dynamic>{
 
 class _RestClient implements RestClient {
   _RestClient(this._dio, {this.baseUrl}) {
-    baseUrl ??= 'http://10.0.2.2:4000';
+    baseUrl ??= 'http://192.168.11.101:4000';
   }
 
   final Dio _dio;
@@ -43,10 +47,11 @@ class _RestClient implements RestClient {
   Future<List<Oproduct>> getoproduct() async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
+    final _headers = <String, dynamic>{};
     final _data = <String, dynamic>{};
     final _result = await _dio.fetch<List<dynamic>>(
         _setStreamType<List<Oproduct>>(
-            Options(method: 'POST', headers: <String, dynamic>{}, extra: _extra)
+            Options(method: 'POST', headers: _headers, extra: _extra)
                 .compose(_dio.options, '/oproduct',
                     queryParameters: queryParameters, data: _data)
                 .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));

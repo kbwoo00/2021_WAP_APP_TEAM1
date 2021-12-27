@@ -20,7 +20,7 @@ Map<String, dynamic> _$getstateToJson(getstate instance) => <String, dynamic>{
 
 class _RestClient2 implements RestClient2 {
   _RestClient2(this._dio, {this.baseUrl}) {
-    baseUrl ??= 'http://10.0.2.2:4000';
+    baseUrl ??= 'http://192.168.11.101:4000';
   }
 
   final Dio _dio;

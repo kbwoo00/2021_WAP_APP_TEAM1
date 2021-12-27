@@ -73,7 +73,7 @@ class _TGTContentWidgetState extends State<TGTContentWidget> {
                       child: Builder(builder: (context) {
                         if (widget.TGTlist is Oproduct) {
                           return Image.network(
-                              "http://10.0.2.2:5000/image/${widget.TGTlist.id}");
+                              "http://192.168.11.101:5000/image/${widget.TGTlist.id}");
                         } else {
                           return Image.network(
                               'https://pds.joongang.co.kr/news/component/htmlphoto_mmdata/201912/13/ed91135f-1189-429d-ae2a-507664b03924.jpg');
@@ -169,19 +169,39 @@ class _TGTContentWidgetState extends State<TGTContentWidget> {
                                       MediaQuery.of(context).size.width * 0.01),
                                   alignment: Alignment.centerRight,
                                   height: double.infinity,
-                                  child: Text(
-                                    "locate",
-                                    style: TextStyle(
-                                      height: 1,
-                                      fontFamily: 'BalsamiqSans',
-                                      color: Colors.black,
-                                      fontWeight: FontWeight.normal,
-                                      fontStyle: FontStyle.normal,
-                                      fontSize:
+                                  child: Builder(builder: (context) {
+                                    if (widget.TGTlist is Oproduct) {
+                                      return Text(
+                                        "${widget.TGTlist.place}",
+                                        maxLines: 1,
+                                        overflow: TextOverflow.ellipsis,
+                                        style: TextStyle(
+                                          height: 1,
+                                          fontFamily: 'BalsamiqSans',
+                                          color: Colors.black,
+                                          fontWeight: FontWeight.normal,
+                                          fontStyle: FontStyle.normal,
+                                          fontSize:
                                           MediaQuery.of(context).size.width *
                                               0.03,
-                                    ),
-                                  ),
+                                        ),
+                                      );
+                                    } else {
+                                      return Text(
+                                        "locate",
+                                        style: TextStyle(
+                                          height: 1,
+                                          fontFamily: 'BalsamiqSans',
+                                          color: Colors.black,
+                                          fontWeight: FontWeight.normal,
+                                          fontStyle: FontStyle.normal,
+                                          fontSize:
+                                          MediaQuery.of(context).size.width *
+                                              0.03,
+                                        ),
+                                      );
+                                    }
+                                  }),
                                 ),
                               ),
                             ],

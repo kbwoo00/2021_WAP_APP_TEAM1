@@ -22,7 +22,7 @@ class _TGTChatPageState extends State<TGTChatPage> {
   final key3 = const Key('key3');
   final _userId = "user";
   final WebSocketChannel _channel =
-      IOWebSocketChannel.connect('ws://10.0.2.2:9000');
+      IOWebSocketChannel.connect('ws://192.168.11.101:9000');
   final ScrollController _scrollController = ScrollController();
 
   _scrollToBottom() {

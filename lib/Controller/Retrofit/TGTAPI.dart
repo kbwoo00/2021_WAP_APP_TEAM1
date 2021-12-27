@@ -4,7 +4,7 @@ import 'package:dio/dio.dart';
 
 part 'TGTAPI.g.dart';
 
-@RestApi(baseUrl: "http://10.0.2.2:4000")
+@RestApi(baseUrl: "http://192.168.11.101:4000") //10.0.2.2:
 abstract class RestClient {
   factory RestClient(Dio dio, {String baseUrl}) = _RestClient;
 
@@ -20,6 +20,9 @@ class Oproduct {
   String user;
   String title;
   String detail;
+  String itime;
+  String deadline;
+  String place;
 
   Oproduct({
     required this.id,
@@ -28,6 +31,9 @@ class Oproduct {
     required this.user,
     required this.title,
     required this.detail,
+    required this.itime,
+    required this.deadline,
+    required this.place,
   });
 
   factory Oproduct.fromJson(Map<String, dynamic> json) =>

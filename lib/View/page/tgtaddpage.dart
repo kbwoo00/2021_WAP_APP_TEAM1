@@ -1,11 +1,15 @@
 import 'dart:io';
+import 'package:dio/dio.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_naver_login/flutter_naver_login.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:kakao_flutter_sdk/all.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:provider/provider.dart';
 import 'package:togetor/Controller/GoogleMapService/map_bloc.dart';
+import 'package:togetor/Controller/Provider/info.dart';
 import 'package:togetor/View/ui/tgtbutton.dart';
 import '../ui/tgt_side_bar.dart';
 import '../ui/tgttop_bar.dart';
@@ -25,19 +29,14 @@ import '../../Controller/Provider/counter_provider.dart';
 //   );
 // }
 class Add extends StatefulWidget {
-  Add({Key? key}) : super(key: key);
+  final String? location;
+  Add({Key? key, this.location}) : super(key: key);
   @override
   _AddState createState() => _AddState();
 }
 
 class _AddState extends State<Add> {
-  File? _contentImage;
-
-  Future<File> saveImagePermanently(String imagePath) async {
-    final directory = await getApplicationDocumentsDirectory();
-    final _contentImage = File('${directory.path}/name');
-    return File(imagePath).copy(_contentImage.path);
-  }
+  XFile? _contentImage;
 
   final TextEditingController _title = new TextEditingController();
   final TextEditingController _detail = new TextEditingController();
@@ -55,55 +54,49 @@ class _AddState extends State<Add> {
     Future pickImage(ImageSource source) async {
       try {
         final _contentImage = await ImagePicker().pickImage(source: source);
+        setState(() => this._contentImage = _contentImage);
         if (_contentImage == null) return;
-        final imagePermanent = await saveImagePermanently(_contentImage.path);
-        setState(() => this._contentImage = imagePermanent);
       } on PlatformException catch (e) {
         print('Failed to pick Image : $e');
       }
     }
 
+    Future apitest(XFile? image) async{
+      Dio dio = Dio();
+      dio.options.baseUrl = 'http://192.168.11.101:4000';
+
+      NaverAccountResult? naverlogin;
+      User? kakaologin;
+      if(context.read<LoginINFO>().naverINFO?.id != ""){
+        naverlogin = context.read<LoginINFO>().naverINFO;
+      }else{
+        print("kakao");
+        kakaologin = context.read<LoginINFO>().kakaoINFO;
+      }
+      var formData = FormData.fromMap({
+        'title': "${_title.text}",
+        'detail': "${_detail.text}",
+        'selectedValue': "${_selectedValue}",
+        'deadline': _limitedDate != null ? "${_limitedDate}" : "",
+        'login': naverlogin != null ? naverlogin.id : kakaologin?.id,
+        'userlimit': "${context.read<CountProvider>().count}",
+        'place': widget.location != null ? widget.location : "",
+      });
+      formData.files.addAll([
+        MapEntry('one',
+          MultipartFile.fromFileSync('${image!.path}'), //,filename: '${image!.name}1'
+        ),
+      ]);
+      print(formData.runtimeType);
+      var response = await dio.post('/iproduct_mobile', data:formData);
+      print(response);
+    }
+
     return Scaffold(
+      resizeToAvoidBottomInset: false,
       key : key2,
-      // endDrawer : Container(
-      //   width:250,
-      //   child : Drawer(
-      //       child : ListView(
-      //         padding : EdgeInsets.zero,
-      //         children: <Widget>[
-      //           DrawerHeader(
-      //             child:Text('Drawer'),
-      //             decoration: BoxDecoration(
-      //               color:Colors.blue,),
-      //           ),
-      //         ],
-      //       )
-      //   ),
-      // ),
       endDrawer:TGTSideBar(),
       appBar: TGTtop_bar(key: key2, appBar: AppBar(), title: "등록 페이지"),
-      // appBar: AppBar(
-      //     title: Text('등록'),
-      //     centerTitle: true, elevation:0.0,
-      //     leading: IconButton(
-      //         icon:Icon(Icons.arrow_left_rounded),
-      //         onPressed: (){
-      //           print('gotoback(navigation위젯');
-      //         }
-      //     ),
-      //     actions: <Widget>[
-      //       Container(
-      //         child: IconButton(
-      //           iconSize: 40,
-      //           color: Colors.black,
-      //           icon: Icon(Icons.menu),
-      //           onPressed: () {
-      //             _scaffoldKey.currentState!.openEndDrawer();
-      //           },
-      //         ),
-      //       )
-      //     ]),
-
       body: SafeArea(
           child: Column(
             children: <Widget>[
@@ -251,7 +244,7 @@ class _AddState extends State<Add> {
                   size: 30.0,
                 ),
                 onPressed: () {
-                  //setContent
+                  apitest(_contentImage);
                 },
               )
             ],
@@ -260,19 +253,3 @@ class _AddState extends State<Add> {
     );
   }
 }
-
-// void setContent() async {
-//   String TGTContenturl = "http://118.223.255.68:4000/";
-//   var TGTContentresponse = await http.get(TGTContenturl);
-//   var TGTContentData = convert.jsonDecode(
-//       convert.utf8.decode(TGTContentresponse.bodyBytes));
-//   setState(
-//         () {
-//       _title = TGTContentData["title"];
-//       _detail = TGTContentData["detail"];
-//       _contentImage = TGTContentData["contentImage"];
-//       _maxParticipant = TGTContentData["maxParticipant"];
-//       _limitedDate = TGTContentData["limitedDate"];
-//     },
-//   );
-// }

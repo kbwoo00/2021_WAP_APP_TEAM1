@@ -37,7 +37,7 @@ class _MapSampleState extends State<MapSample> {
   var place;
 
   @override
-  void initState() async{
+  void initState() {
     final applicationBloc = Provider.of<MapBloc>(context, listen: false);
 
     locationSubscription =
@@ -200,7 +200,7 @@ class _MapSampleState extends State<MapSample> {
                         } else {
                           print(place!.formattedAddress);
                           Navigator.of(context).push(
-                              MaterialPageRoute(builder: (context) => Add()));
+                              MaterialPageRoute(builder: (context) => Add(location: place?.formattedAddress,)));
                         }
                       },
                     ),
