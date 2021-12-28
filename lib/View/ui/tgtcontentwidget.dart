@@ -28,7 +28,7 @@ class _TGTContentWidgetState extends State<TGTContentWidget> {
           Navigator.push(
             context,
             MaterialPageRoute(
-              builder: (context) => TGTContentDetail(index: widget.index),
+              builder: (context) => TGTContentDetail(index: widget.index, productid: widget.TGTlist.id),
             ),
           );
         },

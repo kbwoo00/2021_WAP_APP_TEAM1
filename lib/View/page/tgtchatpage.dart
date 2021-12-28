@@ -29,6 +29,11 @@ class _TGTChatPageState extends State<TGTChatPage> {
     _scrollController.jumpTo(_scrollController.position.maxScrollExtent + 50.0);
   }
 
+  void initState() {
+    super.initState();
+    print(widget.productID);
+  }
+
   @override
   Widget build(BuildContext context) {
     _firstMessage();
@@ -85,6 +90,8 @@ class _TGTChatPageState extends State<TGTChatPage> {
               // 첫 입장이라면 이전 채팅 불러와야함.
               if (isFirst) {
                 var jsonData = convert.json.decode(snapshot.data.toString());
+                print("hkkkkkkkkkkkkkkkkk");
+                print(jsonData);
                 if (jsonData["data"] != null) {
                   jsonData["data"]
                       .forEach((chat) => chatList.add(Chat.fromJson(chat)));
@@ -95,17 +102,26 @@ class _TGTChatPageState extends State<TGTChatPage> {
                 var jsonData = convert.json.decode(snapshot.data.toString());
                 print(jsonData);
                 var _message = jsonData["data"];
-                var nowUserId = jsonData["name"].substring(2);
+                var nowUserId = jsonData["name"];
+                // String userId='';
+                print('----------------------------');
+                print(nowUserId);
                 var type = jsonData["type"];
                 if (type == "newPeople") {
                   var userId = jsonData["newChater"];
                   _message = "$userId님이 입장하였습니다.";
                 } else if (type == "leavePeople") {
-                  _message = "$jsonData['leaveChater']님이 퇴장하였습니다.";
+                  var userId = jsonData["leaveChater"];
+                  _message = "${userId}님이 퇴장하였습니다.";
                 }
+                // 여기 firstinfo하고 leaveinfo는 name에 반환하는게 없어서
+                // 퇴장할 때 json["name"]에 null값 받아서 에러나는건데
+                // 일단 임시적으로 서버쪽에서 name도 넘기게 함
+
+                // 지금 userid는 임시로 정하고 테스트한거 인지
 
                 Chat nowChat = Chat(
-                  participant: nowUserId,
+                  participant: nowUserId, //nowUserId
                   chatting: _message,
                   chatTime: DateTime.now().toString(),
                 );
@@ -151,7 +167,7 @@ class _TGTChatPageState extends State<TGTChatPage> {
     if (_controller.text.isNotEmpty) {
       var data = {
         "type": "message",
-        "userid": _userId,
+        "userid": _userId, //_userId
         "productid": widget.productID,
         "data": "${_controller.text}"
       };
@@ -159,6 +175,16 @@ class _TGTChatPageState extends State<TGTChatPage> {
       _channel.sink.add(jsonData);
     }
   }
+
+  // void leave(){
+  //   var data = {
+  //     "type": "leaveinfo",
+  //     "userid": _userId,
+  //     "productid": widget.productID,
+  //   };
+  //   var jsonData = convert.json.encode(data);
+  //   _channel.sink.add(jsonData);
+  // }
 
   @override
   void dispose() {
@@ -234,7 +260,7 @@ class Chat {
 
   factory Chat.fromJson(Map<String, dynamic> parseJson) {
     return Chat(
-        participant: parseJson["participant"],
+        participant: "익명${parseJson['participant'][2]}",
         chatting: parseJson["chatting"],
         chatTime: parseJson["chattime"]);
   }

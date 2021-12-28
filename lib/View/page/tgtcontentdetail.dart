@@ -11,7 +11,8 @@ import 'dart:convert' as convert;
 
 class TGTContentDetail extends StatefulWidget {
   final index;
-  const TGTContentDetail({Key? key, this.index}) : super(key: key);
+  final productid;
+  const TGTContentDetail({Key? key, this.index, this.productid}) : super(key: key);
 
   @override
   _TGTContentDetailState createState() => _TGTContentDetailState();
@@ -102,8 +103,8 @@ class _TGTContentDetailState extends State<TGTContentDetail> {
                 context,
                 MaterialPageRoute(
                   builder: (_) =>
-                  const TGTChatPage(
-                    productID: 1,
+                  TGTChatPage(
+                    productID: widget.productid,
                   ),
                 ),
               );
